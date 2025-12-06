@@ -88,4 +88,4 @@ Final Project - Exploratory Data Analysis & Visualization with Python
 
 Citation
 
-Novith, D. C. (2025). US–China Trade War: Detecting Trade Circumvention.
+Novith, D. C. (2025). US–China Trade War: Detecting Trade Circumvention. 
