@@ -179,7 +179,7 @@ with st.sidebar:
         </div>
         <div style="margin-top:18px; font-size:0.78rem; color:#444; text-align:center; line-height:1.35;"><strong>Final Project</strong><br>Exploratory Data Analysis &<br>Visualization with Python</div>            
     </div>
-    """, height=285)
+    """, height=300)
 
 # ======================================================================
 # PAGE: OVERVIEW (Combines Introduction & Methodology)
