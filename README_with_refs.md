@@ -125,9 +125,9 @@ Novith, D. C. (2025). *US–China Trade War: Detecting Trade Circumvention*.
 
 ## 📘 **References (APA 7th Edition)**
 
-Antràs, P. (2021). *De-globalisation? Global value chains in the post-COVID-19 world*. Economics & Statistics Working Paper.  
-Bown, C. P. (2020). *US–China trade war tariffs: An up-to-date chartbook*. Peterson Institute for International Economics.  
-Fajgelbaum, P. D., Goldberg, P. K., Kennedy, P. J., & Khandelwal, A. K. (2020). The return to protectionism. *The Quarterly Journal of Economics, 135*(1), 1–55.  
+Antràs, P. (2020). *De-globalisation? Global value chains in the post-COVID-19 world*. Economics & Statistics Working Paper.  
+Bown, C. P. (2025). *US–China trade war tariffs: An up-to-date chartbook*. Peterson Institute for International Economics.  
+Fajgelbaum, P. D., Goldberg, P. K., Kennedy, P. J., & Khandelwal, A. K. (2019). The return to protectionism. *The Quarterly Journal of Economics, 135*(1), 1–55.  
 Freund, C., Mulabdic, A., & Piermartini, R. (2022). Is China’s trade diverting to ASEAN? *The World Bank Economic Review*.  
 Garcia-Herrero, A., & Tan, X. (2023). Is ASEAN the new China? Evaluating post-tariff shifts in manufacturing. *Asian Economic Papers*.  
 Kim, M., & Lee, J. W. (2023). Global value chain realignment after the US–China trade war. *Journal of Asian Economics*.  

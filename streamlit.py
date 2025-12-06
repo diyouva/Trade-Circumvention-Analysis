@@ -236,7 +236,7 @@ if page == "Overview":
         fig_map.update_geos(showcountries=True, countrycolor="white", showland=True, landcolor="#f0f0f0", showocean=True, oceancolor="white", showframe=False, coastlinecolor="white")
         fig_map.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, showlegend=False)
         st.plotly_chart(fig_map, use_container_width=True)
-        st.markdown(f'<p class="caption-text">Figure 1. The Tri-Polar Economy ({year_start}-{year_end}). ASEAN trade volume has reached {ratio:.2f}x the size of China\'s direct volume in this dataset.</p>', unsafe_allow_html=True)
+        #st.markdown(f'<p class="caption-text">Figure 1. The Tri-Polar Economy ({year_start}-{year_end}). ASEAN trade volume has reached {ratio:.2f}x the size of China\'s direct volume in this dataset.</p>', unsafe_allow_html=True)
 
     # --- Methodology Section ---
     st.markdown("""
