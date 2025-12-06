@@ -204,7 +204,7 @@ with st.sidebar:
         </div>
         <div style="margin-top:18px; font-size:0.78rem; color:#444; text-align:center; line-height:1.35;"><strong>Final Project</strong><br>Exploratory Data Analysis &<br>Visualization with Python</div>            
     </div>
-    """, height=285)
+    """, height=300)
 
 # ======================================================================
 # PAGE: OVERVIEW (Combines Introduction & Methodology)
@@ -247,7 +247,7 @@ if page == "Overview":
         ratio = 0
 
     if not map_df.empty:
-        st.markdown('<div class="section-header">Figure 1: Spatial Distribution of Trade Value</div>', unsafe_allow_html=True)
+        # st.markdown('<div class="section-header">Figure 1: Spatial Distribution of Trade Value</div>', unsafe_allow_html=True)
         
         fig_map = px.choropleth(
             map_df, locations="iso", color="Group", hover_name="reporter",
@@ -278,7 +278,7 @@ if page == "Overview":
 
     st.markdown("""
     <div class="journal-text">
-    Where $S$ represents the market share of US imports. Second, the <b>Trade Intensity Index (TII)</b> measures the relative bias of ASEAN exports toward the US market. Finally, the <b>Volume Complementarity Analysis</b> tracks absolute values to verify if export surges are backed by proportional industrial capacity.
+    Where 'S' represents the market share of US imports. Second, the <b>Trade Intensity Index (TII)</b> measures the relative bias of ASEAN exports toward the US market. Finally, the <b>Volume Complementarity Analysis</b> tracks absolute values to verify if export surges are backed by proportional industrial capacity.
     </div>
     """, unsafe_allow_html=True)
 
