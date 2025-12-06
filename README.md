@@ -1,91 +1,125 @@
-US-China Trade War: Detecting Trade Circumvention Dashboard
+# **US–China Trade War: Detecting Trade Circumvention Dashboard**
+### *A Streamlit-Based Analytical Platform for Monitoring Supply Chain Shifts and Transshipment Risks*
 
-This project is a Streamlit-based interactive dashboard designed to analyze and visualize the potential trade circumvention occurring as a result of the US-China trade war. It focuses on the shift in supply chains towards ASEAN countries and uses various economic indicators to detect transshipment activities.
+---
 
-Overview
+## 📌 **Overview**
 
-The dashboard provides a comprehensive analysis of trade data from 2015 to 2020, specifically targeting high-sensitivity HS codes affected by Section 301 tariffs. It aims to answer whether the increased US-ASEAN trade is due to legitimate production shifts or if it masks the rerouting of Chinese goods.
+The **US–China Trade War: Detecting Trade Circumvention Dashboard** is an interactive Streamlit application designed to analyze potential trade circumvention behaviors triggered by Section 301 tariffs. Using bilateral trade data from **2015–2020**, the dashboard evaluates whether rising US imports from ASEAN countries indicate:
 
-Features
+- Genuine **production relocation**, or  
+- Possible **rerouting of Chinese goods** through ASEAN (transshipment)
 
-Interactive Period Filter: Analyze data across different timeframes (2015-2020).
+This tool integrates economic indicators, spatial visualization, and share-shift analytics to provide a policy-relevant view of global value chain realignments.
 
-Scientific Visualization:
+---
 
-Overview Map: A spatial distribution map highlighting the trade volume of major economic blocs (US, China, ASEAN).
+## 🔍 **Key Features**
 
-Composition Analysis: Donut charts showing the share of US imports from China, ASEAN, and the Rest of the World.
+### **1. Interactive Time Exploration**
+Analyze trade behavior dynamically across selected periods (2015–2020).
 
-Product Level Drill-down: Bar charts identifying top ASEAN exporters and specific product categories (e.g., Electronics, Furniture) driving the trade surge.
+### **2. Scientific Visualization Suite**
+- **🌍 Overview Map**  
+  Spatial distribution of trade values across US, China, and ASEAN (others shown in grey).
 
-Circumvention Detection:
+- **🍩 Composition Analysis**  
+  Donut/pie charts revealing the proportion of US imports sourced from China, ASEAN, and the Rest of the World.
 
-Mirror Share-Shift Analysis: Visualizing the correlation between the decline in China's market share and the rise in ASEAN's share.
+- **📦 Product-Level Drill-Down**  
+  Identify top ASEAN exporters and high-sensitivity HS categories (e.g., 8517, 8471, 8542, 9401).
 
-Trade Intensity Index (TII): Measuring the export focus of ASEAN nations towards the US.
+### **3. Circumvention Detection Framework**
+- **📉→📈 Mirror Share-Shift Analysis**  
+  Visual correlation between China’s declining market share and ASEAN’s corresponding rise.
 
-Volume Complementarity: Tracking the absolute volume of exports to validate industrial capacity.
+- **📊 Trade Intensity Index (TII)**  
+  Measures how concentrated a country’s exports are toward the US market.
 
-Dynamic Analysis & Synthesis: All conclusions and strategic syntheses automatically update based on the selected time period and underlying data.
+- **📐 Volume Complementarity Check**  
+  Validates whether export increases align with realistic industrial capacity.
 
-Scientific Journal Style: The dashboard is presented with a formal academic tone, suitable for policy review and economic analysis.
+- **🧠 Dynamic Interpretation Layer**  
+  Narrative conclusions automatically update based on user selections and transformed datasets.
 
-Project Structure
+### **4. Academic Presentation Style**
+Designed in a scientific-journal aesthetic suitable for policy reviews, research dissemination, and conference presentations.
 
+---
+
+## 📂 **Project Structure**
+
+```
 /root
-  ├── streamlit.py          # Main application file
-  ├── styles.css            # Custom CSS for styling
-  ├── requirements.txt      # Python dependencies
-  ├── README.md             # Project documentation
-  ├── modules/              # Custom Python modules
-  │   ├── data_load2.py     # Data loading and cleaning functions
-  │   └── utils2.py         # Calculation logic for trade indices
-  ├── data/                 # Data folder (contains CSV files)
-  │   ├── ASEAN_*.csv
-  │   ├── China_*.csv
-  │   └── USA_*.csv
-  └── assets/               # Static assets (images)
-      └── cmu_logo_circular.png
+├── streamlit.py            # Main Streamlit application
+├── styles.css              # Custom journal-style CSS
+├── requirements.txt        # Python dependencies list
+├── README.md               # Project documentation
+│
+├── modules/
+│   ├── data_load2.py       # Data ingestion & cleaning functions
+│   └── utils2.py           # Computation of indices (TII, share-shift, etc.)
+│
+├── data/                   # UN Comtrade / WITS datasets
+│   ├── ASEAN_*.csv
+│   ├── China_*.csv
+│   └── USA_*.csv
+│
+└── assets/
+    └── cmu_logo_circular.png
+```
 
+---
 
-Data Sources
+## 📊 **Data Sources**
 
-Source: United Nations Comtrade Database via World Integrated Trade Solution (WITS).
+- **Primary Source:**  
+  *United Nations Comtrade Database* via **World Integrated Trade Solution (WITS)**.
 
-Scope: Bilateral trade flows for HS codes targeted by Section 301 tariffs (e.g., HS 8517, 8542, 8471, 9401).
+- **Scope:**  
+  Bilateral trade flows focusing on HS codes impacted by Section 301 tariffs, including (but not limited to):  
+  **HS 8517, 8471, 8542, 9401**.
 
-Installation & Usage
+---
 
-Clone the repository:
+## ⚙️ **Installation & Usage**
 
+### **1. Clone the Repository**
+```bash
 git clone <repository_url>
 cd <project_directory>
+```
 
-
-Create a virtual environment (optional but recommended):
-
+### **2. (Optional) Create a Virtual Environment**
+```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate        # macOS/Linux
+# or
+venv\Scripts\activate           # Windows
+```
 
-
-Install dependencies:
-
+### **3. Install Dependencies**
+```bash
 pip install -r requirements.txt
+```
 
-
-Run the application:
-
+### **4. Launch the Streamlit Dashboard**
+```bash
 streamlit run streamlit.py
+```
 
+---
 
-Author
+## 👨‍💻 **Author**
 
-Diyouva C. Novith
+**Diyouva C. Novith**  
+*M.S. Public Policy & Management — Data Analytics Track*  
+Final Project for **Exploratory Data Analysis & Visualization with Python**
 
-MS. Public Policy & Management, Data Analytics Track
+---
 
-Final Project - Exploratory Data Analysis & Visualization with Python
+## 📚 **Citation**
 
-Citation
+If you reference or build upon this project, please cite:
 
-Novith, D. C. (2025). US–China Trade War: Detecting Trade Circumvention.
+> **Novith, D. C. (2025). *US–China Trade War: Detecting Trade Circumvention*.**
