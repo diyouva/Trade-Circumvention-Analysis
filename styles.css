@@ -1,3 +1,11 @@
+/* --- GLOBAL DASHBOARD SETTINGS --- */
+/* Force white background manually */
+.stApp {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* --- SIDEBAR STYLING --- */
 [data-testid="stSidebar"] {
     background-color: #faf7f5 !important;
     padding-top: 35px;
@@ -12,6 +20,7 @@
     margin-bottom: 20px;
 }
 
+/* --- RADIO BUTTON STYLING --- */
 div.row-widget.stRadio > div[role="radiogroup"] > label > div:first-child {
     display: none !important;
 }

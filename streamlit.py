@@ -32,6 +32,31 @@ except FileNotFoundError:
     st.warning("styles.css not found. Some styling may be missing.")
 
 # -------------------------------------
+# GLOBAL COLOR PALETTE
+# -------------------------------------
+# Defining consistent colors for countries and groups across the app
+COLOR_MAP = {
+    # Major Blocs
+    'United States': '#1f77b4',  # Muted Blue
+    'China': '#d62728',          # Muted Red
+    'ASEAN': '#2ca02c',          # Muted Green
+    'Rest of World': '#d3d3d3',  # Light Grey
+    'Other': '#d3d3d3',
+    
+    # Specific ASEAN Reporters (for Trade Circumvention drill-down)
+    'Vietnam': '#e67e22',        # Orange
+    'Thailand': '#9b59b6',       # Purple
+    'Malaysia': '#16a085',       # Teal
+    'Indonesia': '#f1c40f',      # Yellow
+    'Philippines': '#34495e',    # Dark Slate
+    'Singapore': '#e84393',      # Pink
+    'Cambodia': '#8e44ad',
+    'Myanmar': '#2c3e50',
+    'Lao PDR': '#27ae60',
+    'Brunei': '#d35400'
+}
+
+# -------------------------------------
 # CUSTOM CSS FOR TYPOGRAPHY
 # -------------------------------------
 st.markdown("""
@@ -179,7 +204,7 @@ with st.sidebar:
         </div>
         <div style="margin-top:18px; font-size:0.78rem; color:#444; text-align:center; line-height:1.35;"><strong>Final Project</strong><br>Exploratory Data Analysis &<br>Visualization with Python</div>            
     </div>
-    """, height=300)
+    """, height=285)
 
 # ======================================================================
 # PAGE: OVERVIEW (Combines Introduction & Methodology)
@@ -221,15 +246,13 @@ if page == "Overview":
         asean_pct = 0
         ratio = 0
 
-    color_map = {'United States': '#1f77b4', 'China': '#d62728', 'ASEAN': '#2ca02c', 'Other': '#d3d3d3'}
-
     if not map_df.empty:
-        # Only show header and chart if data exists
-        # st.markdown('<div class="section-header">Figure 1: Spatial Distribution of Trade Value</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">Figure 1: Spatial Distribution of Trade Value</div>', unsafe_allow_html=True)
         
         fig_map = px.choropleth(
             map_df, locations="iso", color="Group", hover_name="reporter",
-            hover_data=["Formatted_Value"], color_discrete_map=color_map,
+            hover_data=["Formatted_Value"], 
+            color_discrete_map=COLOR_MAP,  # Use Global Color Map
             projection="natural earth", title=""
         )
         fig_map.update_traces(hovertemplate="<b>%{hovertext}</b><br>Accumulated Trade: %{customdata[0]}<extra></extra>")
@@ -255,7 +278,7 @@ if page == "Overview":
 
     st.markdown("""
     <div class="journal-text">
-    Where 'S' represents the market share of US imports. Second, the <b>Trade Intensity Index (TII)</b> measures the relative bias of ASEAN exports toward the US market. Finally, the <b>Volume Complementarity Analysis</b> tracks absolute values to verify if export surges are backed by proportional industrial capacity.
+    Where $S$ represents the market share of US imports. Second, the <b>Trade Intensity Index (TII)</b> measures the relative bias of ASEAN exports toward the US market. Finally, the <b>Volume Complementarity Analysis</b> tracks absolute values to verify if export surges are backed by proportional industrial capacity.
     </div>
     """, unsafe_allow_html=True)
 
@@ -288,7 +311,7 @@ elif page == "Country Analysis":
         if not pie_df.empty:
             fig_pie = px.pie(
                 pie_df, values='Value', names='Source', color='Source',
-                color_discrete_map={'United States': '#1f77b4','China': '#d62728','ASEAN': '#2ca02c','Rest of World': '#95a5a6'},
+                color_discrete_map=COLOR_MAP, # Use Global Color Map
                 hole=0.4
             )
             fig_pie.update_traces(textposition='inside', textinfo='percent+label')
@@ -367,9 +390,11 @@ elif page == "Product Analysis":
         top_country = top_row['reporter']
         top_product = top_row[color_col]
 
+        # Use qualitative colors for products as there are many potential categories
         fig_bar = px.bar(
             top_plot, x='value_kusd', y='reporter', color=color_col, orientation='h',
-            labels={'value_kusd': 'Export Value (kUSD)', 'reporter': 'Exporting Country'}, title=""
+            labels={'value_kusd': 'Export Value (kUSD)', 'reporter': 'Exporting Country'}, title="",
+            color_discrete_sequence=px.colors.qualitative.Prism 
         )
         fig_bar.update_layout(yaxis={'categoryorder':'total ascending'}, legend=dict(orientation="h", y=-0.2))
         st.plotly_chart(fig_bar, use_container_width=True)
@@ -428,13 +453,17 @@ elif page == "Trade Circumvention":
         fig_share = px.line(
             share_df, x="year", y=["asean_share", "china_share"],
             labels={"value": "Share of US Imports (%)", "year": "Fiscal Year"},
-            color_discrete_map={"asean_share": "#2ca02c", "china_share": "#d62728"}, markers=True
+            # Use specific map for lines
+            color_discrete_map={"asean_share": COLOR_MAP['ASEAN'], "china_share": COLOR_MAP['China']}, 
+            markers=True
         )
         new_names = {"asean_share": "ASEAN (Gaining)", "china_share": "China (Losing)"}
         fig_share.for_each_trace(lambda t: t.update(name = new_names[t.name]))
         
-        # FIX: Place legend horizontally above the chart, REMOVE title
-        fig_share.update_layout(legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center', title_text=""))
+        fig_share.update_layout(
+            legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center', title_text=""),
+            xaxis_title=None
+        )
         
         st.plotly_chart(fig_share, use_container_width=True)
         st.markdown(f'<p class="caption-text">Figure 4. The Mirror Effect: Data shows {correlation_text} between China and ASEAN market shares.</p>', unsafe_allow_html=True)
@@ -451,10 +480,16 @@ elif page == "Trade Circumvention":
             top_reporters = tii_df.groupby('reporter')['tii'].mean().sort_values(ascending=False).head(5).index.tolist()
             top_tii_country = top_reporters[0]
             tii_plot = tii_df[tii_df['reporter'].isin(top_reporters)]
-            fig_tii = px.line(tii_plot, x="year", y="tii", color="reporter", markers=True)
             
-            # FIX: Place legend horizontally above the chart, REMOVE title
-            fig_tii.update_layout(legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center', title_text=""))
+            fig_tii = px.line(
+                tii_plot, x="year", y="tii", color="reporter", markers=True,
+                color_discrete_map=COLOR_MAP # Use Global Color Map for reporters
+            )
+            
+            fig_tii.update_layout(
+                legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center', title_text=""),
+                xaxis_title=None
+            )
             
             st.plotly_chart(fig_tii, use_container_width=True)
             st.markdown('<p class="caption-text">Figure 5a. Trade Intensity: Export focus pivots to the US.</p>', unsafe_allow_html=True)
@@ -464,10 +499,16 @@ elif page == "Trade Circumvention":
         if not tci_df.empty:
             top_reporters_tci = tci_df.groupby('reporter')['tci'].mean().sort_values(ascending=False).head(5).index.tolist()
             tci_plot = tci_df[tci_df['reporter'].isin(top_reporters_tci)]
-            fig_tci = px.line(tci_plot, x="year", y="tci", color="reporter", markers=True)
             
-            # FIX: Place legend horizontally above the chart, REMOVE title
-            fig_tci.update_layout(legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center', title_text=""))
+            fig_tci = px.line(
+                tci_plot, x="year", y="tci", color="reporter", markers=True,
+                color_discrete_map=COLOR_MAP # Use Global Color Map for reporters
+            )
+            
+            fig_tci.update_layout(
+                legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center', title_text=""),
+                xaxis_title=None
+            )
             
             st.plotly_chart(fig_tci, use_container_width=True)
             st.markdown('<p class="caption-text">Figure 5b. Volume Surge: Validating the scale of transfer.</p>', unsafe_allow_html=True)
@@ -490,12 +531,10 @@ elif page == "Policy Review":
     st.markdown(f'<div class="sub-title">Synthesis of Findings ({year_start}–{year_end})</div>', unsafe_allow_html=True)
     
     # --- CALCULATE SUMMARY STATS FOR THE REPORT ---
-    # 1. Share Shift Correlation
     df_filtered = all_df[(all_df["year"] >= year_start) & (all_df["year"] <= year_end)]
     share_df = compute_share_shift(df_filtered, target_hs_list)
     corr_val = share_df['china_share'].corr(share_df['asean_share']) if len(share_df) > 1 else 0
     
-    # 2. Composition Stats
     pie_df = build_us_import_pie_data(usa_df, target_hs_list, year_start, year_end)
     if not pie_df.empty:
         total = pie_df['Value'].sum()
