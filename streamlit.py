@@ -206,8 +206,6 @@ if page == "Overview":
         """, unsafe_allow_html=True)
 
     # --- Figure 1: Map ---
-    st.markdown('<div class="section-header">Figure 1: Spatial Distribution of Trade Value</div>', unsafe_allow_html=True)
-    
     # Filter Data for Map
     overview_df = all_df[(all_df['year'] >= year_start) & (all_df['year'] <= year_end)]
     map_df = build_intro_map_data(overview_df)
@@ -226,6 +224,9 @@ if page == "Overview":
     color_map = {'United States': '#1f77b4', 'China': '#d62728', 'ASEAN': '#2ca02c', 'Other': '#d3d3d3'}
 
     if not map_df.empty:
+        # Only show header and chart if data exists
+        st.markdown('<div class="section-header">Figure 1: Spatial Distribution of Trade Value</div>', unsafe_allow_html=True)
+        
         fig_map = px.choropleth(
             map_df, locations="iso", color="Group", hover_name="reporter",
             hover_data=["Formatted_Value"], color_discrete_map=color_map,
@@ -431,7 +432,10 @@ elif page == "Trade Circumvention":
         )
         new_names = {"asean_share": "ASEAN (Gaining)", "china_share": "China (Losing)"}
         fig_share.for_each_trace(lambda t: t.update(name = new_names[t.name]))
-        fig_share.update_layout(legend=dict(orientation="h", y=1.02, x=0.01))
+        
+        # FIX: Place legend horizontally above the chart
+        fig_share.update_layout(legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center'))
+        
         st.plotly_chart(fig_share, use_container_width=True)
         st.markdown(f'<p class="caption-text">Figure 4. The Mirror Effect: Data shows {correlation_text} between China and ASEAN market shares.</p>', unsafe_allow_html=True)
 
@@ -448,7 +452,10 @@ elif page == "Trade Circumvention":
             top_tii_country = top_reporters[0]
             tii_plot = tii_df[tii_df['reporter'].isin(top_reporters)]
             fig_tii = px.line(tii_plot, x="year", y="tii", color="reporter", markers=True)
-            fig_tii.update_layout(legend=dict(orientation="h", y=-0.3))
+            
+            # FIX: Place legend horizontally above the chart
+            fig_tii.update_layout(legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center'))
+            
             st.plotly_chart(fig_tii, use_container_width=True)
             st.markdown('<p class="caption-text">Figure 5a. Trade Intensity: Export focus pivots to the US.</p>', unsafe_allow_html=True)
 
@@ -458,7 +465,10 @@ elif page == "Trade Circumvention":
             top_reporters_tci = tci_df.groupby('reporter')['tci'].mean().sort_values(ascending=False).head(5).index.tolist()
             tci_plot = tci_df[tci_df['reporter'].isin(top_reporters_tci)]
             fig_tci = px.line(tci_plot, x="year", y="tci", color="reporter", markers=True)
-            fig_tci.update_layout(legend=dict(orientation="h", y=-0.3))
+            
+            # FIX: Place legend horizontally above the chart
+            fig_tci.update_layout(legend=dict(orientation="h", y=1.1, x=0.5, xanchor='center'))
+            
             st.plotly_chart(fig_tci, use_container_width=True)
             st.markdown('<p class="caption-text">Figure 5b. Volume Surge: Validating the scale of transfer.</p>', unsafe_allow_html=True)
 
