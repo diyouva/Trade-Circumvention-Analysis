@@ -26,14 +26,14 @@ div.row-widget.stRadio > div[role="radiogroup"] > label > div:first-child {
     display: none !important;
 }
 
-/* 2. Base Style for ALL buttons (Unselected) */
+/* 2. Base Style for ALL buttons (Unselected State) */
 div.row-widget.stRadio > div[role="radiogroup"] > label {
     width: 100% !important;
     display: flex !important;
     justify-content: center;
     align-items: center;
     background-color: #ffffff !important; /* White Background */
-    color: #333333 !important;            /* Dark Grey Text - ENSURES READABILITY */
+    color: #333333 !important;            /* Dark Grey Text - ENSURES READABILITY on White */
     border: 2px solid #e0e0e0 !important;
     border-radius: 10px !important;
     padding: 12px 10px !important;
@@ -45,12 +45,22 @@ div.row-widget.stRadio > div[role="radiogroup"] > label {
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
+/* Force internal text elements to be dark grey in unselected state */
+div.row-widget.stRadio > div[role="radiogroup"] > label p {
+    color: #333333 !important;
+    font-weight: 600 !important;
+}
+
 /* 3. Hover Effect */
 div.row-widget.stRadio > div[role="radiogroup"] > label:hover {
     background-color: #fdf2f0 !important;
     border-color: #c0392b !important;
     color: #c0392b !important;
     transform: translateY(-2px);
+}
+
+div.row-widget.stRadio > div[role="radiogroup"] > label:hover p {
+    color: #c0392b !important;
 }
 
 /* 4. Selected State (Active Page) */
@@ -61,6 +71,11 @@ div.row-widget.stRadio > div[role="radiogroup"] > label:has(input:checked) {
     border-color: #c0392b !important;
     box-shadow: 0 4px 6px rgba(192, 57, 43, 0.25);
     transform: scale(1.02);
+}
+
+/* CRITICAL: Force all children text elements (p, div, span) to be WHITE when selected */
+div.row-widget.stRadio > div[role="radiogroup"] > label:has(input:checked) * {
+    color: #ffffff !important;
 }
 
 /* --- PROFILE CARD --- */
