@@ -255,7 +255,7 @@ if page == "Overview":
 
     st.markdown("""
     <div class="journal-text">
-    Where $S$ represents the market share of US imports. Second, the <b>Trade Intensity Index (TII)</b> measures the relative bias of ASEAN exports toward the US market. Finally, the <b>Volume Complementarity Analysis</b> tracks absolute values to verify if export surges are backed by proportional industrial capacity.
+    Where 'S' represents the market share of US imports. Second, the <b>Trade Intensity Index (TII)</b> measures the relative bias of ASEAN exports toward the US market. Finally, the <b>Volume Complementarity Analysis</b> tracks absolute values to verify if export surges are backed by proportional industrial capacity.
     </div>
     """, unsafe_allow_html=True)
 
